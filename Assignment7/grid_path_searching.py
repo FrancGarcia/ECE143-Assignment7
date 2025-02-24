@@ -15,11 +15,10 @@ def count_paths(m,n,blocks):
     assert(isinstance(blocks, list)), "Blocks must be a valid list"
     for block in blocks:
         assert(isinstance(block, tuple)), "Each block in blocks must be a tuple"
-        assert(isinstance(block[0], int) and block[0] >= 0), "First entry of current block must be a type int of at least 0"
-        assert(isinstance(block[1], int) and block[1] >= 0), "Second entry of current block must be a type int of at least 0"
+        assert(isinstance(block[0], int) and 0 <= block[0] and block[0] < m), "First entry of current block must be a type int between 0 and m"
+        assert(isinstance(block[1], int) and 0 <= block[1] and block[1] < n), "Second entry of current block must be a type int between 0 and n"
     res = [[0] * n for _ in range(m)]
     res[0][0] = 1
-    print(res)
     for r in range(m):
         for c in range(n):
             if (r,c) not in blocks:
@@ -29,9 +28,5 @@ def count_paths(m,n,blocks):
                     res[r][c] = res[r-1][c]
                 elif 1 <= c < n:
                     res[r][c] = res[r][c-1]
-    print(res)
     return res[m-1][n-1]
-
-blocks = [(0,3),(1,1)]
-count_paths(3,4,blocks)
 
